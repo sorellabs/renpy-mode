@@ -47,7 +47,6 @@
   (require 'compile)
   (require 'hippie-exp))
 
-(require 'sym-comp)
 (autoload 'comint-mode "comint")
 
 (defgroup renpy nil
