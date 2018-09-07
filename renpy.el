@@ -9,7 +9,7 @@
 
 ;; Based on python.el, which has the following maintainership:
 
-;; Maintainer: Dave Love <fx@gnu.org>; Quil <https://github.com/robotlolita>; Billy Wade <https://github.com/billywade>
+;; Maintainer: Dave Love <fx@gnu.org>; Quildreen Motta <https://github.com/robotlolita>; Billy Wade <https://github.com/billywade>
 ;; Created: Nov 2003
 ;; Version: 0.3
 ;; Homepage: https://github.com/billywade/renpy-mode
@@ -69,7 +69,7 @@
 
 (defvar renpy-font-lock-keywords
   `(,(rx symbol-start
-	 ;; From v 2.5 reference, § keywords.
+	 ;; From v 2.5 reference, ï¿½ keywords.
 	 ;; def and class dealt with separately below
 	 (or "and" "as" "assert" "break" "continue" "del" "elif" "else"
 	     "except" "exec" "finally" "for" "from" "global" "if"
@@ -180,7 +180,7 @@
 "zorder"
              )
 	 symbol-end)
-    (,(rx symbol-start "None" symbol-end)	; see § Keywords in 2.5 manual
+    (,(rx symbol-start "None" symbol-end)	; see ï¿½ Keywords in 2.5 manual
      . font-lock-constant-face)
     ;; Definitions
     (,(rx symbol-start (group "class") (1+ space) (group (1+ (or word ?_))))
