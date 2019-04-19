@@ -2426,9 +2426,9 @@ with skeleton expansions for compound statement templates.
   
   (set (make-local-variable 'eldoc-documentation-function)
        #'renpy-eldoc-function)
-  (add-hook 'eldoc-mode-hook
-	    (lambda () (run-renpy nil t)) ; need it running
-	    nil t)
+;;  (add-hook 'eldoc-mode-hook
+;;	    (lambda () (run-renpy nil t)) ; need it running
+;;	    nil t)
   (set (make-local-variable 'symbol-completion-symbol-function)
        'renpy-partial-symbol)
   (set (make-local-variable 'symbol-completion-completions-function)
