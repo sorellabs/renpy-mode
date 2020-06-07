@@ -38,12 +38,13 @@
 
 ;;; Code:
 
-(setq renpy-generic-imenu
+(setq renpy-generic-imenu 
       '( ( nil "\\b\\(label\\|menu\\)\\s-+\\(\\w+\\):" 2)
          ( nil "\\b\\(screen\\)\\s-+\\(\\w+\\):" 2)
          ( nil "\\b\\(transform\\)\\s-+\\(\\w+\\):" 2)
          ; ( nil "\\bcall\\s-+\\w+\\s-+from\\s-+\\(\\w+\\)" 1)
-         ( nil "\\b\\(def\\|class\\)\\s-+\\(\\w+\\)" 2)))
+         ( nil "\\b\\(def\\|class\\)\\s-+\\(\\w+\\)" 2)
+         ))
 
 (require 'comint)
 
@@ -176,7 +177,8 @@
 "with"
 "with"
 "yield"
-"zorder")
+"zorder"
+             )
 	 symbol-end)
     (,(rx symbol-start "None" symbol-end)	; see � Keywords in 2.5 manual
      . font-lock-constant-face)
@@ -1258,7 +1260,8 @@
 "ypadding"
 "ypos"
 "yzoom"
-"zoom")) symbol-end)
+"zoom"
+          )) symbol-end)
      (1 font-lock-builtin-face))
     (,(rx symbol-start (or
 	  ;; other built-ins
@@ -1381,7 +1384,8 @@ Used for syntactic keywords.  N is the match number (1, 2 or 3)."
 	["Start of block" renpy-beginning-of-block
 	 :help "Go to start of innermost definition around point"]
 	["End of block" renpy-end-of-block
-	 :help "Go to end of innermost definition around point"]))
+	 :help "Go to end of innermost definition around point"]
+        ))
     map))
 
 ;; Fixme: add toolbar stuff for useful things like symbol help, send
@@ -2419,7 +2423,7 @@ with skeleton expansions for compound statement templates.
 
   (setq imenu-create-index-function 'imenu-default-create-index-function)
   (setq imenu-generic-expression renpy-generic-imenu)
-
+  
   (set (make-local-variable 'eldoc-documentation-function)
        #'renpy-eldoc-function)
 ;;  (add-hook 'eldoc-mode-hook
@@ -2454,7 +2458,8 @@ with skeleton expansions for compound statement templates.
   (when renpy-guess-indent (renpy-guess-indent))
   ;; Let's make it harder for the user to shoot himself in the foot.
   (unless (= tab-width renpy-indent)
-    (setq indent-tabs-mode nil)))
+    (setq indent-tabs-mode nil))
+  )
 
 ;; Not done automatically in Emacs 21 or 22.
 (defcustom renpy-mode-hook nil
@@ -2482,15 +2487,19 @@ with skeleton expansions for compound statement templates.
              (fill-prefix (renpy-string-fill-prefix))
              (fill-column (- fill-column string-indentation))
              (fill-paragraph-function nil)
-             (indent-line-function nil))
-
+             (indent-line-function nil)
+             )
+        
         (message "fill prefix: %S" fill-prefix)
 
         (renpy-fill-string (renpy-string-start))
-        t)
-    (renpy-fill-paragraph-2 justify)))
+        t
+        )
+    (renpy-fill-paragraph-2 justify)
+    )   
+  )
 
-; Indents the current line.
+; Indents the current line. 
 (defun renpy-indent-line (&optional arg)
   (interactive)
 
@@ -2501,25 +2510,33 @@ with skeleton expansions for compound statement templates.
   (save-excursion
     (beginning-of-line)
     (if (eq (renpy-in-literal) 'string)
-        (progn
+        (progn 
           (delete-horizontal-space)
-          (indent-to (renpy-string-indentation)))))
+          (indent-to (renpy-string-indentation))
+          )
+      ))
 
   (if ( < (current-column) (current-indentation) )
-      (back-to-indentation) ))
+      (back-to-indentation) )
+
+  )
 
 
 ; Computes the start of the current string.
 (defun renpy-string-start ()
-  (nth 8 (parse-partial-sexp (point-min) (point))))
+  (nth 8 (parse-partial-sexp (point-min) (point)))
+  )
 
 ; Computes the amount of indentation needed to put the current string
 ; in the right spot.
-(defun renpy-string-indentation ()
+(defun renpy-string-indentation () 
   (+ 1
      (save-excursion
        (- (goto-char (renpy-string-start))
-          (progn (beginning-of-line) (point))))))
+          (progn (beginning-of-line) (point)))
+       )
+     )
+  )
 
 
 
